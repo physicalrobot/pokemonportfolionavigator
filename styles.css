@@ -30,3 +30,26 @@ body {
   image-rendering: pixelated;
 }
 
+#myAboutMeLink{
+  position:absolute;
+  top:105px;
+  left:98px;
+  font-size:13px;
+  color:transparent;
+}
+
+#myBlogLink{
+  position:absolute;
+  top:105px;
+  right:120px;
+  font-size:13px;
+  color:transparent;
+}
+
+
+#myPortfolioLink{
+  position:absolute;
+  top:205px;
+  right:98px;
+  font-size:13px;
+  color:transparent;
