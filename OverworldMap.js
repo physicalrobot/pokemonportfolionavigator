@@ -2,8 +2,7 @@ class OverworldMap {
     constructor(config) {
         this.overworld = null;
         this.gameObjects = config.gameObjects;
-        this.linkingBlog = config.linkingBlog || {};
-
+        this.cutsceneSpaces = config.cutsceneSpaces || {};
         this.walls = config.walls || {};
 
         this.lowerImage = new Image();
@@ -11,7 +10,11 @@ class OverworldMap {
 
         this.upperImage = new Image();
         this.upperImage.src = config.upperSrc;
+
+        this.isCutscenePlaying = false;
     }
+
+
 
     drawLowerImage(ctx) {
         ctx.drawImage(this.lowerImage, 0, 0)
@@ -31,14 +34,17 @@ class OverworldMap {
     }
 
     mountObjects() {
-        Object.values(this.gameObjects).forEach(o => {
+        Object.keys(this.gameObjects).forEach(key => {
+
+            let object = this.gameObjects[key];
+            object.id = key;
+
 
             //TODO: determine if this object should actually mount
-            o.mount(this);
+            object.mount(this);
 
         })
     }
-
     async startCutscene(events) {
         this.isCutscenePlaying = true;
 
@@ -52,17 +58,37 @@ class OverworldMap {
 
         this.isCutscenePlaying = false;
 
+
         //Reset NPCs to do their idle behavior
         Object.values(this.gameObjects).forEach(object => object.doBehaviorEvent(this))
     }
 
+
+    checkForActionCutscene() {
+        const hero = this.gameObjects["hero"]
+        const nextCoords = utils.nextPosition(hero.x, hero.y, hero.direction);
+        const match = Object.values(this.gameObjects).find(object => {
+            return `${object.x},${object.y}` === `${nextCoords.x},${nextCoords.y}`
+        })
+        console.log({ match });
+        if (!this.isCutscenePlaying && match && match.talking.length) {
+            this.startCutscene(match.talking[0].events)
+        }
+    }
+
+
     checkForFootstepCutscene() {
         const hero = this.gameObjects["hero"];
-        const match = this.linkingBlog[`${hero.x},${hero.y}`];
+
+
+        const match = this.cutsceneSpaces[`${hero.x},${hero.y}`];
+        // console.log({ match });
+
         if (!this.isCutscenePlaying && match) {
             this.startCutscene(match[0].events)
         }
     }
+
 
     addWall(x, y) {
         this.walls[`${x},${y}`] = true;
@@ -70,9 +96,6 @@ class OverworldMap {
     removeWall(x, y) {
         delete this.walls[`${x},${y}`]
     }
-
-
-
     moveWall(wasX, wasY, direction) {
         this.removeWall(wasX, wasY);
         const { x, y } = utils.nextPosition(wasX, wasY, direction);
@@ -94,9 +117,6 @@ window.OverworldMaps = {
                 y: utils.withGrid(9),
 
             }),
-
-
-
 
             /*
             npc1: new Person({
@@ -301,22 +321,39 @@ window.OverworldMaps = {
             [utils.asGridCoord(18, 16)]: true,
             [utils.asGridCoord(19, 16)]: true,
 
+
+
             //sign
             [utils.asGridCoord(6, 14)]: true,
 
         },
-        linkingBlog: {
-            [utils.asGridCoord(7, 7)]: {
+        cutsceneSpaces: {
 
-                events: [{
-                    type: "changeWorld", map: (e) => {
-                        window.location.assign('https://careerkarma.com');
-                    }
+            [utils.asGridCoord(7, 7)]: [
+                {
+                    events: [
+                        { type: "changeMap", url: "https://physicalrobot.github.io/code_blog/" }
+                    ]
                 }
-                ]
-            }
-        }
+            ],
+            [utils.asGridCoord(16, 7)]: [
+                {
+                    events: [
+                        { type: "changeMap", url: "https://physicalrobot.github.io/code_blog/navpages/codenav/" }
+                    ]
+                }
+            ],
+            [utils.asGridCoord(17, 13)]: [
+                {
+                    events: [
+                        { type: "changeMap", url: "https://physicalrobot.github.io/code_blog/navpages/portnav/" }
+                    ]
+                }
+            ]
 
+
+
+        }
     },
 
     Kitchen: {
