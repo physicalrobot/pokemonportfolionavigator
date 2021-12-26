@@ -1,6 +1,9 @@
 class OverworldMap {
     constructor(config) {
+        this.overworld = null;
         this.gameObjects = config.gameObjects;
+        this.linkingBlog = config.linkingBlog || {};
+
         this.walls = config.walls || {};
 
         this.lowerImage = new Image();
@@ -12,6 +15,7 @@ class OverworldMap {
 
     drawLowerImage(ctx) {
         ctx.drawImage(this.lowerImage, 0, 0)
+
 
 
     }
@@ -35,12 +39,38 @@ class OverworldMap {
         })
     }
 
+    async startCutscene(events) {
+        this.isCutscenePlaying = true;
+
+        for (let i = 0; i < events.length; i++) {
+            const eventHandler = new OverworldEvent({
+                event: events[i],
+                map: this,
+            })
+            await eventHandler.init();
+        }
+
+        this.isCutscenePlaying = false;
+
+        //Reset NPCs to do their idle behavior
+        Object.values(this.gameObjects).forEach(object => object.doBehaviorEvent(this))
+    }
+
+    checkForFootstepCutscene() {
+        const hero = this.gameObjects["hero"];
+        const match = this.linkingBlog[`${hero.x},${hero.y}`];
+        if (!this.isCutscenePlaying && match) {
+            this.startCutscene(match[0].events)
+        }
+    }
+
     addWall(x, y) {
         this.walls[`${x},${y}`] = true;
     }
     removeWall(x, y) {
         delete this.walls[`${x},${y}`]
     }
+
 
 
     moveWall(wasX, wasY, direction) {
@@ -60,10 +90,12 @@ window.OverworldMaps = {
 
             hero: new Person({
                 isPlayerControlled: true,
-                x: utils.withGrid(3),
-                y: utils.withGrid(2),
+                x: utils.withGrid(12),
+                y: utils.withGrid(9),
 
             }),
+
+
 
 
             /*
@@ -90,6 +122,9 @@ window.OverworldMaps = {
             [utils.asGridCoord(8, 7)]: true,
             [utils.asGridCoord(9, 7)]: true,
             [utils.asGridCoord(10, 7)]: true,
+
+
+
 
             //right side
             [utils.asGridCoord(10, 6)]: true,
@@ -269,25 +304,21 @@ window.OverworldMaps = {
             //sign
             [utils.asGridCoord(6, 14)]: true,
 
+        },
+        linkingBlog: {
+            [utils.asGridCoord(7, 7)]: {
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+                events: [{
+                    type: "changeWorld", map: (e) => {
+                        window.location.assign('https://careerkarma.com');
+                    }
+                }
+                ]
+            }
         }
+
     },
+
     Kitchen: {
         lowerSrc: "images/maps/KitchenLower.png",
         upperSrc: "images/maps/KitchenUpper.png",

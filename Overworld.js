@@ -23,6 +23,23 @@ class Overworld {
       //Draw Lower layer
       this.map.drawLowerImage(this.ctx);
 
+
+      var a = this.ctx.fillRect(95, 115, 16, 8) // This is the location in the canvas I want to link to the home page of my website.
+      this.ctx.fillStyle = "transparent"
+
+
+      // this.canvas.addEventListener('keyup', function (event) {
+      //   this.x = event.pageX - elemLeft,
+      //    this.y = event.pageY - elemTop;
+      //   console.log(x, y);
+      //   elements.forEach(function (element) {
+      //     if (y > element.top && y < element.top + element.height && x > element.left && x < element.left + element.width) {
+      //       window.location.assign ("https://physicalrobot.github.io/code_blog")
+      //     }
+      //   });
+
+      // }, false);
+
       //Draw Game Objects
       Object.values(this.map.gameObjects).forEach(object => {
         object.sprite.draw(this.ctx);
@@ -33,6 +50,7 @@ class Overworld {
 
 
 
+
       requestAnimationFrame(() => {
         step();
       })
@@ -40,13 +58,26 @@ class Overworld {
     step();
   }
 
-  init() {
-    this.map = new OverworldMap(window.OverworldMaps.DemoRoom);
+  startMap(mapConfig) {
+    this.map = new OverworldMap(mapConfig);
+    this.map.overworld = this;
+    ;
     this.map.mountObjects();
+
+  }
+
+  init() {
+    this.startMap(window.OverworldMaps.DemoRoom)
+    // this.map = new OverworldMap(window.OverworldMaps.DemoRoom);
+    // this.map.mountObjects();
 
     this.directionInput = new DirectionInput();
     this.directionInput.init();
 
     this.startGameLoop();
   }
+
+
+
+
 }

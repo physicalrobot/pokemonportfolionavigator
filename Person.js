@@ -13,6 +13,8 @@ class Person extends GameObject {
         }
     }
 
+
+
     update(state) {
         if (this.movingProgressRemaining > 0) {
             this.updatePosition();
@@ -36,17 +38,18 @@ class Person extends GameObject {
     }
     startBehavior(state, behavior) {
 
-        //set char direction to whatever behavior has
+        //set char direction to whatever behavior has 
         this.direction = behavior.direction;
         if (behavior.type === "walk") {
             //stop here if space not free
             if (state.map.isSpaceTaken(this.x, this.y, this.direction)) {
                 return;
+            }
 
-            };
             //ready to walk
             this.movingProgressRemaining = 16;
         }
+
 
     }
 
