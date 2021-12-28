@@ -349,7 +349,36 @@ window.OverworldMaps = {
                         { type: "changeMap", url: "https://physicalrobot.github.io/code_blog/navpages/portnav/" }
                     ]
                 }
-            ]
+            ],
+            [utils.asGridCoord(7, 8)]: [
+                {
+                    events: [
+                        { type: "textMessage", text: "About Me" },
+                    ]
+                }
+            ],
+            [utils.asGridCoord(16, 8)]: [
+                {
+                    events: [
+                        { type: "textMessage", text: "Code Blog" },
+                    ]
+                }
+            ],
+            [utils.asGridCoord(17, 17)]: [
+                {
+                    events: [
+                        { type: "textMessage", text: "Portfolio Projects" },
+                    ]
+                }
+            ],
+            [utils.asGridCoord(17, 14)]: [
+                {
+                    events: [
+                        { type: "textMessage", text: "Portfolio Projects" },
+                    ]
+                }
+            ],
+
 
 
 

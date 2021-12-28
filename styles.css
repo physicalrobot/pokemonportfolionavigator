@@ -54,3 +54,39 @@ body {
   font-size:13px;
   color:transparent;
 }
+
+
+.TextMessage {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 36px; 
+  padding: 4px;
+  background: #11111081;
+  border-top: 1px solid var(--menu-border-color);
+  color: var(--menu-font-color);
+
+}
+.TextMessage_p {
+  margin: 0;
+  font-size: 12px;
+  font-family: 'Press Start 2P', cursive;
+  text-align: center;
+  color:aqua;
+
+}
+.TextMessage_button {
+  margin: 0;
+  font-size: 8px;  
+  padding:0;
+  -webkit-appearance: none;
+  background:none;
+  border:0;
+  font-family: inherit;
+  cursor: pointer;
+
+  position: absolute;
+  right: 2px;
+  bottom: 0;
+}
