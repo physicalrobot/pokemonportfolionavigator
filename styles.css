@@ -74,7 +74,6 @@ body {
   font-family: 'Press Start 2P', cursive;
   text-align: center;
   color:aqua;
-
 }
 .TextMessage_button {
   margin: 0;
@@ -82,11 +81,14 @@ body {
   padding:0;
   -webkit-appearance: none;
   background:none;
-  border:0;
+  border:1;
   font-family: inherit;
   cursor: pointer;
-
+  color:#e3f0f0;
+  font-family: 'Press Start 2P', cursive;
+  text-align: center;
+  padding-top: 5px;
   position: absolute;
-  right: 2px;
-  bottom: 0;
+  text-align: center;
+  right:135px;
 }
