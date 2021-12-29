@@ -353,6 +353,7 @@ window.OverworldMaps = {
             [utils.asGridCoord(7, 8)]: [
                 {
                     events: [
+                        { who: "hero", type: "stand", direction: "up" },
                         { type: "textMessage", text: "About Me" },
                     ]
                 }
@@ -360,6 +361,7 @@ window.OverworldMaps = {
             [utils.asGridCoord(16, 8)]: [
                 {
                     events: [
+                        { who: "hero", type: "stand", direction: "up" },
                         { type: "textMessage", text: "Code Blog" },
                     ]
                 }
@@ -374,6 +376,8 @@ window.OverworldMaps = {
             [utils.asGridCoord(17, 14)]: [
                 {
                     events: [
+                        { who: "hero", type: "stand", direction: "up" },
+
                         { type: "textMessage", text: "Portfolio Projects" },
                     ]
                 }
