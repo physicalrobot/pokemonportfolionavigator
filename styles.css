@@ -92,3 +92,13 @@ body {
   text-align: center;
   right:135px;
 }
+
+
+#biggie{
+  position:relative;
+  text-align: center;
+  top: 400px;
+  font-family: 'Press Start 2P', cursive;
+
+
+}
