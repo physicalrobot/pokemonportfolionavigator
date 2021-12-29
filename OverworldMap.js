@@ -366,10 +366,12 @@ window.OverworldMaps = {
                     ]
                 }
             ],
-            [utils.asGridCoord(17, 17)]: [
+            [utils.asGridCoord(10, 12)]: [
                 {
                     events: [
-                        { type: "textMessage", text: "Portfolio Projects" },
+                        { who: "hero", type: "stand", direction: "up" },
+
+                        { type: "textMessage", text: "By Vikalp Malhotra" },
                     ]
                 }
             ],
