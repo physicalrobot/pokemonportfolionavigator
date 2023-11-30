@@ -355,6 +355,8 @@ window.OverworldMaps = {
                     events: [
                         { who: "hero", type: "stand", direction: "up" },
                         { type: "textMessage", text: "About Me" },
+                        { type: "textMessage", text: "come on in!" },
+
                     ]
                 }
             ],
@@ -363,6 +365,9 @@ window.OverworldMaps = {
                     events: [
                         { who: "hero", type: "stand", direction: "up" },
                         { type: "textMessage", text: "Code Blog" },
+                        { type: "textMessage", text: "come on in!" },
+
+
                     ]
                 }
             ],
@@ -381,6 +386,8 @@ window.OverworldMaps = {
                         { who: "hero", type: "stand", direction: "up" },
 
                         { type: "textMessage", text: "Portfolio Projects" },
+                        { type: "textMessage", text: "come on in!" },
+
                     ]
                 }
             ],
